@@ -2,26 +2,29 @@ const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
 
+// APP
 const app = express();
 
-const hostname = 'localhost';
-const port = 3000;
+// Constants
+const PORT = 3000;
+const HOST = '0.0.0.0';
 
-const url = 'mongodb://localhost:27017/conFusion';
+const url = 'mongodb://mongo:27017/conFusion';
 
 MongoClient.connect(url, (err, client) => {
   assert.equal(err, null);
 
-  console.log('Connected correctly to mongo server');
+  console.log(`mongoDB running at: ${url}`);
 });
 
 app.get('/', (req, res, next) => {
   console.log(req.headers);
   res.json({ hello: 'world' });
+  // res.send('Hello world\n');
 });
 
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+app.listen(PORT, HOST, () => {
+  console.log(`Server running on http://${HOST}:${PORT}/`);
 });
 
 
